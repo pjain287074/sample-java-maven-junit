@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+    
+    tools {
+        maven 'mvn'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your source code repository
+                git branch: 'demo', url: 'https://github.com/pjain287074/sample-java-maven-junit.git'
+            }
+        }
+        
+        stage('Compile') {
+            steps {
+                // Build your application
+                sh 'mvn compile -f webapp/pom.xml'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Run tests
+                sh 'mvn test -f webapp/pom.xml'
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                // Deploy your application
+                sh 'mvn package -f webapp/pom.xml'
+            }
+        }
+    }
+    
+    post {
+        success {
+            // Perform actions when the pipeline succeeds
+            echo 'Pipeline succeeded!'
+            // Additional steps or notifications can be added here
+        }
+        
+        failure {
+            // Perform actions when the pipeline fails
+            echo 'Pipeline failed!'
+            // Additional steps or notifications can be added here
+        }
+    }
+}
