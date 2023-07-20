@@ -1,4 +1,4 @@
-pipelineJob('My-CI-Pipeline1') {
+pipelineJob('demo-CI-Pipeline4') {
     definition {
         cps {
             script("""
